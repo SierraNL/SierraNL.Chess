@@ -1,0 +1,17 @@
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\obj\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.csprojAssemblyReference.cache
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\obj\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.csproj.CoreCompileInputs.cache
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\obj\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.AssemblyInfoInputs.cache
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\obj\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.AssemblyInfo.cs
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\bin\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.deps.json
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\bin\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.runtimeconfig.json
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\bin\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.runtimeconfig.dev.json
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\bin\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.dll
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\bin\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.pdb
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\bin\Debug\netcoreapp2.1\SierraNL.Chess.Core.dll
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\bin\Debug\netcoreapp2.1\SierraNL.Chess.Core.pdb
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\obj\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.csproj.CopyComplete
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\obj\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.dll
+C:\Users\l_gra\source\repos\SierraNL.Chess\tests\SierraNL.Chess.Core.Tests\obj\Debug\netcoreapp2.1\SierraNL.Chess.Core.Tests.pdb
