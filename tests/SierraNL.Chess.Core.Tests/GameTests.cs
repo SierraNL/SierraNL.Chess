@@ -17,7 +17,7 @@ namespace SierraNL.Chess.Core.Tests
         [Fact]
         public void TheGameStartWithZeroMoves()
         {
-            Assert.Equal(0, _sut.Moves.Count());
+            Assert.Empty(_sut.Moves);
         }
     }
 }
