@@ -29,9 +29,7 @@ namespace SierraNL.Chess.Core
             builder.AppendLine("|White\t|Black\t|");
             int lines=0;
             while(lines < Moves.Count()) {
-                if(Moves.Count() > lines+1) {
-                    builder.AppendLine($"|{Moves.ElementAt(lines)}\t|{Moves.ElementAtOrDefault(lines+1)}\t|");
-                }
+                builder.AppendLine($"|{Moves.ElementAt(lines)}\t|{Moves.ElementAtOrDefault(lines+1)}\t|");
                 lines += 2;
             }
 

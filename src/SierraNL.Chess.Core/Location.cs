@@ -33,7 +33,42 @@ namespace SierraNL.Chess.Core
 
         public bool Equals(Location other)
         {
-            return this.Number == other.Number && this.Letter == other.Letter;
+            return this.Number == other.Number && this.Letter.Equals(other.Letter);
+        }
+
+        public static bool operator ==(Location l1, Location l2)
+        {
+            bool rc;
+
+            if (System.Object.ReferenceEquals(l1, l2))
+            {
+                rc = true;
+            }
+            else if (((object)l1 == null) || ((object)l2 == null))
+            {
+                rc = false;
+            }
+            else
+            {
+                rc = (l1.Equals(l2));
+            }
+
+            return rc;
+        }
+
+        public static bool operator !=(Location l1, Location l2)
+        {
+            return !(l1 == l2);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Location);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Letter, Number);
         }
     }
 }

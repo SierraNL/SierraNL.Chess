@@ -11,6 +11,7 @@ namespace SierraNL.Chess.Console
             var board = new Board();
             System.Console.WriteLine("First move:");
             var move = new Move(new Location('e', 2), new Location('e', 4));
+            System.Console.WriteLine(move);
             board.ProcessMove(move);
             game.AddMove(move);
             System.Console.WriteLine("Current game:");
