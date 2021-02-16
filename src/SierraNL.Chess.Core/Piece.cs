@@ -4,7 +4,7 @@ using SierraNL.Chess.Core.Consts;
 
 namespace SierraNL.Chess.Core
 {
-    public class Piece {
+    public abstract class Piece {
 
         public Color Color {get; private set;}
 
@@ -17,6 +17,8 @@ namespace SierraNL.Chess.Core
             Name = name;
             Abbreviation = DetermineAbbriviation();
         }
+
+        public abstract bool IsMovePossible(Location source, Location destination);
 
         private char? DetermineAbbriviation()
         {

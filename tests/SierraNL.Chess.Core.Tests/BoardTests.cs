@@ -61,7 +61,7 @@ namespace SierraNL.Chess.Core.Tests
         {
             var sut = new Board();
             var move = new Move(new Location('e', 2), new Location('e', 4));
-            sut.ProcessMove(move);
+            Assert.True(sut.TryProcessMove(move));
 
             //Pawn is now at e4
             Assert.Single(sut.Fields.Where(x => x.Piece != null && x.Piece.Color == Enums.Color.White && x.Piece.Name == PieceNames.Pawn && x.Location.Letter == 'e' && x.Location.Number == 4));

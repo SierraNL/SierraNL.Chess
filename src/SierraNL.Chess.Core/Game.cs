@@ -8,9 +8,11 @@ namespace SierraNL.Chess.Core
     public class Game
     {
         public IEnumerable<Move> Moves { get; private set; }
+        public Board Board {get; private set;}
 
         public Game() {
             Moves = new List<Move>();
+            Board = new Board();
         }
 
         public bool IsFinished() {
@@ -19,7 +21,9 @@ namespace SierraNL.Chess.Core
 
         public void AddMove(Move move)
         {
-            ((List<Move>)Moves).Add(move);
+            if(Board.TryProcessMove(move)) {
+                ((List<Move>)Moves).Add(move);
+            }
         }
 
         public override string ToString()

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SierraNL.Chess.Core.Consts;
 using SierraNL.Chess.Core.Enums;
+using SierraNL.Chess.Core.Pieces;
 
 namespace SierraNL.Chess.Core
 {
@@ -15,7 +16,7 @@ namespace SierraNL.Chess.Core
             Fields = FillBoard();
         }
 
-        public void ProcessMove(Move move) {
+        public bool TryProcessMove(Move move) {
             //TODO: check if a move is possible
 
             if(move.SourceLocation != null && move.DestinationLocation != null) 
@@ -32,6 +33,8 @@ namespace SierraNL.Chess.Core
             else {
                 //TODO: castling?
             }
+
+            return true;
         }
 
         public override string ToString()
@@ -69,17 +72,17 @@ namespace SierraNL.Chess.Core
         private void AddPieces(Color color, IEnumerable<Field> mainRow, IEnumerable<Field> pawnRow)
         {
             foreach(var field in pawnRow) {
-                field.Piece = new Piece(color, PieceNames.Pawn);
+                field.Piece = new Pawn(color);
             }
 
-            mainRow.Single(x => x.Location.Letter == 'a').Piece = new Piece(color, PieceNames.Rook);
-            mainRow.Single(x => x.Location.Letter == 'b').Piece = new Piece(color, PieceNames.Knight);
-            mainRow.Single(x => x.Location.Letter == 'c').Piece = new Piece(color, PieceNames.Bishop);
-            mainRow.Single(x => x.Location.Letter == 'd').Piece = new Piece(color, PieceNames.Queen);
-            mainRow.Single(x => x.Location.Letter == 'e').Piece = new Piece(color, PieceNames.King);
-            mainRow.Single(x => x.Location.Letter == 'f').Piece = new Piece(color, PieceNames.Bishop);
-            mainRow.Single(x => x.Location.Letter == 'g').Piece = new Piece(color, PieceNames.Knight);
-            mainRow.Single(x => x.Location.Letter == 'h').Piece = new Piece(color, PieceNames.Rook);
+            mainRow.Single(x => x.Location.Letter == 'a').Piece = new Rook(color);
+            mainRow.Single(x => x.Location.Letter == 'b').Piece = new Knight(color);
+            mainRow.Single(x => x.Location.Letter == 'c').Piece = new Bishop(color);
+            mainRow.Single(x => x.Location.Letter == 'd').Piece = new Queen(color);
+            mainRow.Single(x => x.Location.Letter == 'e').Piece = new King(color);
+            mainRow.Single(x => x.Location.Letter == 'f').Piece = new Bishop(color);
+            mainRow.Single(x => x.Location.Letter == 'g').Piece = new Knight(color);
+            mainRow.Single(x => x.Location.Letter == 'h').Piece = new Rook(color);
         }
 
         private void CreateFields(List<Field> fields)
