@@ -24,6 +24,18 @@ namespace SierraNL.Chess.Core
             return $"{Piece?.Abbreviation}{Location}";
         }
 
+        public bool IsEmpty() {
+            return Piece == null;
+        }
+
+        public bool IsNotEmpty() { 
+            return Piece != null;
+        }
+
+        public bool HasPieceOfColor(Color color) {
+            return (Piece != null && Piece.Color == color);
+        }
+
         private Color DetermineColor() {
             var odd = Location.Number % 2 == 1;
             Color result = Color.White;

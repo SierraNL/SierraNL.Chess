@@ -10,11 +10,16 @@ namespace SierraNL.Chess.Core.Pieces
         }
 
         public override bool IsMovePossible(Location source, Location destination, Board board) {
-            //TODO: only moves that don't cross other pieces are possible, how to do this without board knowledge
             bool result = true;
 
-            //Only straigh lines allowed
-
+            if(board.IsFreePath(source, destination)) {
+                //Only straight lines allowed
+                result = Path.IsStraight(source, destination);
+            }
+            else {
+                result = false;
+            }
+            
             return result;
         }
     }

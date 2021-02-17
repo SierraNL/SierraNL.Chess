@@ -13,12 +13,12 @@ namespace SierraNL.Chess.Core.Pieces
             bool result = false;
 
             //Only one in each direction and one on the diagonal allowed
-            if( destination.Number == source.Number+1 || destination.Number == source.Number-1 && 
-                ((short)destination.Letter == (short)source.Letter+2 || (short)destination.Letter == (short)source.Letter-2)) {
+            if( destination.Number == source.Number + 1 || destination.Number == source.Number - 1 && 
+                ((short)destination.Letter == (short)source.Letter + 2 || (short)destination.Letter == (short)source.Letter - 2)) {
                 result = true;
             }
-            else if(destination.Number == source.Number+2 || destination.Number == source.Number-2 && 
-                    ((short)destination.Letter == (short)source.Letter+1 || (short)destination.Letter == (short)source.Letter-1)) {
+            else if(destination.Number == source.Number + 2 || destination.Number == source.Number - 2 && 
+                    ((short)destination.Letter == (short)source.Letter + 1 || (short)destination.Letter == (short)source.Letter - 1)) {
                 result = true;
             }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SierraNL.Chess.Core.Consts;
 using SierraNL.Chess.Core.Enums;
 using SierraNL.Chess.Core.Pieces;
 
@@ -19,7 +18,7 @@ namespace SierraNL.Chess.Core
         public bool TryProcessMove(Move move) {
             if(move.SourceLocation != null && move.DestinationLocation != null) 
             {
-                var piece = Fields.Single(x => x.Location == move.SourceLocation).Piece;
+                var piece = GetField(move.SourceLocation).Piece;
 
                 if(piece == null) {
                     throw new InvalidOperationException("You can't make a move from a location not containing a piece");
@@ -34,6 +33,15 @@ namespace SierraNL.Chess.Core
                 //TODO: castling?
             }
 
+            return true;
+        }
+
+        public Field GetField(Location location) {
+            return Fields.SingleOrDefault(x => x.Location == location);
+        }
+
+        public bool IsFreePath(Location source, Location destination) {
+            //TODO: Create list of field's that is the path, and check each field for a piece
             return true;
         }
 

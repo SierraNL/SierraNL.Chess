@@ -13,23 +13,25 @@ namespace SierraNL.Chess.Core.Pieces
         public override bool IsMovePossible(Location source, Location destination, Board board) {
             bool result = false;
 
-            var destinationField = board.Fields.Single(x => x.Location == destination);
-            //one step forward, if not blocked
-            //can move diagonal when it's a capture, need more information to determine that
+            var destinationField = board.GetField(destination);
+            //one step forward (color dependant), if not blocked
+            //can move diagonal when it's a capture
             if(Color == Color.White)
             {
-                if(destination.Number == source.Number + 1 && destination.Letter == source.Letter && destinationField.Piece == null) {
+                if(destination.Number == source.Number + 1 && destination.Letter == source.Letter && destinationField.IsEmpty()) {
                     result = true;
                 }
-                else if(destination.Number == source.Number + 1 && ((short)destination.Letter == (short)source.Letter + 1 || (short)destination.Letter == (short)source.Letter - 1) && destinationField.Piece != null) {
+                else if(destination.Number == source.Number + 1 && ((short)destination.Letter == (short)source.Letter + 1 || (short)destination.Letter == (short)source.Letter - 1) && 
+                        destinationField.HasPieceOfColor(Color.Black)) {
                     result = true;
                 }
             }
             else {
-                if(destination.Number == source.Number - 1 && destination.Letter == source.Letter && destinationField.Piece == null) {
+                if(destination.Number == source.Number - 1 && destination.Letter == source.Letter && destinationField.IsEmpty()) {
                     result = true;
                 }
-                else if(destination.Number == source.Number - 1 && ((short)destination.Letter == (short)source.Letter + 1 || (short)destination.Letter == (short)source.Letter - 1) && destinationField.Piece != null) {
+                else if(destination.Number == source.Number - 1 && ((short)destination.Letter == (short)source.Letter + 1 || (short)destination.Letter == (short)source.Letter - 1) && 
+                        destinationField.HasPieceOfColor(Color.White)) {
                     result = true;
                 }
             }
