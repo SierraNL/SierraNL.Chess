@@ -18,7 +18,7 @@ namespace SierraNL.Chess.Core
             Abbreviation = DetermineAbbriviation();
         }
 
-        public abstract bool IsMovePossible(Location source, Location destination);
+        public abstract bool IsMovePossible(Location source, Location destination, Board board);
 
         private char? DetermineAbbriviation()
         {

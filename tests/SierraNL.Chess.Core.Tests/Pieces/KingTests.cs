@@ -29,15 +29,16 @@ namespace SierraNL.Chess.Core.Tests.Pieces
         [Fact]
         public void KingShouldBeAllowedToMove1StepInEachDirection()
         {
+            var board = new Board();
             var source = new Location('d', 3);
-            Assert.True(_sut.IsMovePossible(source, new Location('c', 2)));
-            Assert.True(_sut.IsMovePossible(source, new Location('c', 3)));
-            Assert.True(_sut.IsMovePossible(source, new Location('c', 4)));
-            Assert.True(_sut.IsMovePossible(source, new Location('d', 2)));
-            Assert.True(_sut.IsMovePossible(source, new Location('d', 4)));
-            Assert.True(_sut.IsMovePossible(source, new Location('e', 2)));
-            Assert.True(_sut.IsMovePossible(source, new Location('e', 3)));
-            Assert.True(_sut.IsMovePossible(source, new Location('e', 4)));
+            Assert.True(_sut.IsMovePossible(source, new Location('c', 2), board));
+            Assert.True(_sut.IsMovePossible(source, new Location('c', 3), board));
+            Assert.True(_sut.IsMovePossible(source, new Location('c', 4), board));
+            Assert.True(_sut.IsMovePossible(source, new Location('d', 2), board));
+            Assert.True(_sut.IsMovePossible(source, new Location('d', 4), board));
+            Assert.True(_sut.IsMovePossible(source, new Location('e', 2), board));
+            Assert.True(_sut.IsMovePossible(source, new Location('e', 3), board));
+            Assert.True(_sut.IsMovePossible(source, new Location('e', 4), board));
         }
     }
 }

@@ -9,7 +9,7 @@ namespace SierraNL.Chess.Core.Pieces
 
         }
 
-        public override bool IsMovePossible(Location source, Location destination) {
+        public override bool IsMovePossible(Location source, Location destination, Board board) {
             //TODO: only moves which don't result in check are allowed, how to do this without board knowledge
             bool result = true;
 

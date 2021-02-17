@@ -17,15 +17,15 @@ namespace SierraNL.Chess.Core
         }
 
         public bool TryProcessMove(Move move) {
-            //TODO: check if a move is possible
-
             if(move.SourceLocation != null && move.DestinationLocation != null) 
             {
                 var piece = Fields.Single(x => x.Location == move.SourceLocation).Piece;
-                
+
                 if(piece == null) {
                     throw new InvalidOperationException("You can't make a move from a location not containing a piece");
                 }
+
+                piece.IsMovePossible(move.SourceLocation, move.DestinationLocation, this);
 
                 Fields.Single(x => x.Location == move.DestinationLocation).Piece = piece;
                 Fields.Single(x => x.Location == move.SourceLocation).Piece = null;
