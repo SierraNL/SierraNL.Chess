@@ -68,5 +68,35 @@ namespace SierraNL.Chess.Core.Tests
             //e2 is empty
             Assert.Single(sut.Fields.Where(x => x.Piece == null && x.Location.Letter == 'e' && x.Location.Number == 2));
         }
+
+        [Fact]
+        public void CheckPathShouldReturnTrueIfNothingIsInItsPath() {
+            var sut = new Board();
+
+            Assert.True(sut.IsFreePath(new Location('a',3), new Location('a', 6)));
+        }
+
+        [Fact]
+        public void CheckPathShouldReturnFalseIfSomethingIsInItsPath() {
+            var sut = new Board();
+
+            //On a new board, there is a pawn at a2
+            Assert.False(sut.IsFreePath(new Location('a',1), new Location('a', 4)));
+        }
+
+        [Fact]
+        public void CheckPathShouldReturnTrueIfSomethingIsInTheDestination() {
+            var sut = new Board();
+
+            //On a new board, there is a pawn at a2, but since that's the destination, the path is ok
+            Assert.True(sut.IsFreePath(new Location('a',4), new Location('a', 2)));
+        }
+
+        [Fact]
+        public void CheckPathShouldReturnTrueIfSomethingIsInTheSource() {
+            var sut = new Board();
+
+            Assert.True(sut.IsFreePath(new Location('a',2), new Location('a', 3)));
+        }
     }
 }

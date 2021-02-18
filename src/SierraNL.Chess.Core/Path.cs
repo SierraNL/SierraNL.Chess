@@ -6,7 +6,17 @@ namespace SierraNL.Chess.Core
     {
         public static bool IsStraight(Location source, Location destination) {
             //only changes on either number or letter
-            return source.Number == destination.Number || source.Letter == destination.Letter;
+            return IsVertical(source, destination) || IsHorizontal(source, destination);
+        }
+
+        public static bool IsVertical(Location source, Location destination) {
+            //only changes on number
+            return source.Letter == destination.Letter;
+        }
+
+        public static bool IsHorizontal(Location source, Location destination) {
+            //only changes on letter
+            return source.Number == destination.Number;
         }
 
         public static bool IsDiagonal(Location source, Location destination) {
