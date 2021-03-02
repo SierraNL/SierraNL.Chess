@@ -2,6 +2,7 @@ using System;
 using SierraNL.Chess.Core.Enums;
 using SierraNL.Chess.Core.Consts;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace SierraNL.Chess.Core.Pieces
 {
@@ -21,6 +22,18 @@ namespace SierraNL.Chess.Core.Pieces
                 (destinationField.HasPieceOfColor(Color))) {
                 result = false;
             }
+
+            return result;
+        }
+
+        public override IEnumerable<Location> PossibleMoves(Location source, Board board) 
+        {
+            var result = new List<Location>();
+            //Get all 1 step fields from source
+            //Check for empty or enemy destination
+            //Check if destination will not result in check
+
+            //TODO: Check if castling is possible
 
             return result;
         }

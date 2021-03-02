@@ -1,6 +1,7 @@
 using System;
 using SierraNL.Chess.Core.Enums;
 using SierraNL.Chess.Core.Consts;
+using System.Collections.Generic;
 
 namespace SierraNL.Chess.Core.Pieces
 {
@@ -21,6 +22,15 @@ namespace SierraNL.Chess.Core.Pieces
                     ((short)destination.Letter == (short)source.Letter + 1 || (short)destination.Letter == (short)source.Letter - 1)) {
                 result = true;
             }
+
+            return result;
+        }
+
+        public override IEnumerable<Location> PossibleMoves(Location source, Board board) 
+        {
+            var result = new List<Location>();
+            //Get all 1 step + 1 step diagonal fields from source
+            //Check for empty or enemy destination
 
             return result;
         }

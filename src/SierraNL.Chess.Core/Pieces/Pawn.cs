@@ -2,6 +2,7 @@ using System;
 using SierraNL.Chess.Core.Enums;
 using SierraNL.Chess.Core.Consts;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace SierraNL.Chess.Core.Pieces
 {
@@ -36,6 +37,16 @@ namespace SierraNL.Chess.Core.Pieces
                 }
             }
             
+
+            return result;
+        }
+
+        public override IEnumerable<Location> PossibleMoves(Location source, Board board) 
+        {
+            var result = new List<Location>();
+            //Get all 1 step forward fields from source
+            //Check for empty destination
+            //Or get both 1 step diagonal forward fields is a capture is possible
 
             return result;
         }

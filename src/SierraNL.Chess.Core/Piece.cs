@@ -1,6 +1,7 @@
 using System;
 using SierraNL.Chess.Core.Enums;
 using SierraNL.Chess.Core.Consts;
+using System.Collections.Generic;
 
 namespace SierraNL.Chess.Core
 {
@@ -19,6 +20,8 @@ namespace SierraNL.Chess.Core
         }
 
         public abstract bool IsMovePossible(Location source, Location destination, Board board);
+
+        public abstract IEnumerable<Location> PossibleMoves(Location source, Board board);
 
         private char? DetermineAbbriviation()
         {
