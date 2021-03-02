@@ -44,9 +44,23 @@ namespace SierraNL.Chess.Core.Pieces
         public override IEnumerable<Location> PossibleMoves(Location source, Board board) 
         {
             var result = new List<Location>();
-            //Get all 1 step forward fields from source
-            //Check for empty destination
-            //Or get both 1 step diagonal forward fields is a capture is possible
+
+            Field nextField = board.GetField(new Location(source.Letter, Color == Color.White ? (short)(source.Number + 1) : (short)(source.Number - 1)));
+            if(nextField.IsEmpty()) {
+                result.Add(nextField.Location);
+            }
+            if(source.StepsToLeftEdge() > 0) {
+                Field leftField = board.GetField(new Location((char)(source.Letter-1), Color == Color.White ? (short)(source.Number + 1) : (short)(source.Number - 1)));
+                if(leftField.HasPieceOfColor(Color == Color.White ? Color.Black : Color.White)) {
+                    result.Add(leftField.Location);
+                }
+            }
+            if(source.StepsToRightEdge() > 0) {
+                Field rightField = board.GetField(new Location((char)(source.Letter+1), Color == Color.White ? (short)(source.Number + 1) : (short)(source.Number - 1)));
+                if(rightField.HasPieceOfColor(Color == Color.White ? Color.Black : Color.White)) {
+                    result.Add(rightField.Location);
+                }
+            }
 
             return result;
         }

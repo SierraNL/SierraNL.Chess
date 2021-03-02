@@ -28,12 +28,42 @@ namespace SierraNL.Chess.Core.Pieces
 
         public override IEnumerable<Location> PossibleMoves(Location source, Board board) 
         {
-            var result = new List<Location>();
-            //Get all 1 step fields from source
-            //Check for empty or enemy destination
-            //Check if destination will not result in check
+            var possibleFields = GetSurroundingFields(source, board);
+            possibleFields = possibleFields.Where(x => x.IsEmpty() || Color == Color.Black ? x.HasPieceOfColor(Color.White) : x.HasPieceOfColor(Color.Black));
+            //TODO: Check if destination will not result in check
 
             //TODO: Check if castling is possible
+
+            return possibleFields.Select(x => x.Location);
+        }
+
+        private IEnumerable<Field> GetSurroundingFields(Location sourceLocation, Board board) {
+            var result = new List<Field>();
+            
+            if(sourceLocation.StepsToLeftEdge() > 1) {
+                result.Add(board.GetField(new Location((char)(sourceLocation.Letter-1), sourceLocation.Number)));
+                if(sourceLocation.StepsToTopEdge() > 1) {
+                    result.Add(board.GetField(new Location((char)(sourceLocation.Letter-1), (short)(sourceLocation.Number+1))));
+                }
+                if(sourceLocation.StepsToBottomEdge() > 1) {
+                    result.Add(board.GetField(new Location((char)(sourceLocation.Letter-1), (short)(sourceLocation.Number-1))));
+                }
+            }
+            if(sourceLocation.StepsToTopEdge() > 1) {
+                result.Add(board.GetField(new Location(sourceLocation.Letter, (short)(sourceLocation.Number+1))));
+            }
+            if(sourceLocation.StepsToBottomEdge() > 1) {
+                result.Add(board.GetField(new Location(sourceLocation.Letter, (short)(sourceLocation.Number-1))));
+            }
+            if(sourceLocation.StepsToRightEdge() > 1) {
+                result.Add(board.GetField(new Location((char)(sourceLocation.Letter+1), sourceLocation.Number)));
+                if(sourceLocation.StepsToTopEdge() > 1) {
+                    result.Add(board.GetField(new Location((char)(sourceLocation.Letter+1), (short)(sourceLocation.Number+1))));
+                }
+                if(sourceLocation.StepsToBottomEdge() > 1) {
+                    result.Add(board.GetField(new Location((char)(sourceLocation.Letter+1), (short)(sourceLocation.Number-1))));
+                }
+            }
 
             return result;
         }

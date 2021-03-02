@@ -70,5 +70,21 @@ namespace SierraNL.Chess.Core
         {
             return HashCode.Combine(Letter, Number);
         }
+
+        public int StepsToLeftEdge() {
+            return Letter-'a';
+        }
+
+        public int StepsToRightEdge() {
+            return 'h'-Letter;
+        }
+
+        public int StepsToTopEdge() {
+            return 8-Number;
+        }
+
+        public int StepsToBottomEdge() {
+            return Number-1;
+        }
     }
 }
