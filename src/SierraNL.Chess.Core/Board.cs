@@ -42,41 +42,31 @@ namespace SierraNL.Chess.Core
 
         //The path is everything in between the source and destination, so excluding the source and destination fields
         public bool IsFreePath(Location source, Location destination) {
-            bool result = false;
+            IEnumerable<Field> result = new List<Field>();
 
             //Create list of field's that is the path, and check each field for a piece
             if(Path.IsVertical(source, destination)) {
-                if(source.Number > destination.Number) {
-                    result = Fields.Where(x => x.Location.Letter == source.Letter && x.Location.Number > destination.Number && x.Location.Number < source.Number).All(y => y.IsEmpty());
-                }
-                else {
-                    result = Fields.Where(x => x.Location.Letter == source.Letter && x.Location.Number > source.Number && x.Location.Number < destination.Number).All(y => y.IsEmpty());
-                }
+                result = GetVerticalFields(source.Number, destination.Number, source.Letter);
             }
             else if(Path.IsHorizontal(source, destination)) {
-                if(source.Letter > destination.Letter) {
-                    result = Fields.Where(x => x.Location.Number == source.Number && x.Location.Letter > destination.Letter && x.Location.Letter < source.Letter).All(y => y.IsEmpty());
-                }
-                else {
-                    result = Fields.Where(x => x.Location.Number == source.Number && x.Location.Letter > source.Letter && x.Location.Letter < destination.Letter).All(y => y.IsEmpty());
-                }
+                result = GetHorizontalFields(source.Letter, destination.Letter, source.Number);
             }
             else if(Path.IsDiagonal(source, destination)) {
                 if(source.Number > destination.Number && source.Letter > destination.Letter) {
-                    result = GetDiagonalFields(destination.Number, destination.Letter, source.Number, source.Letter).All(y => y.IsEmpty());
+                    result = GetDiagonalFields(destination.Number, destination.Letter, source.Number, source.Letter);
                 }
                 else if(source.Number > destination.Number && source.Letter < destination.Letter) {
-                    result = GetDiagonalFields(destination.Number, source.Letter, source.Number, destination.Letter).All(y => y.IsEmpty());
+                    result = GetDiagonalFields(destination.Number, source.Letter, source.Number, destination.Letter);
                 }
                 else if(source.Number < destination.Number && source.Letter > destination.Letter) {
-                    result = GetDiagonalFields(source.Number, destination.Letter, destination.Number, source.Letter).All(y => y.IsEmpty());
+                    result = GetDiagonalFields(source.Number, destination.Letter, destination.Number, source.Letter);
                 }
                 else if(source.Number < destination.Number && source.Letter < destination.Letter) {
-                    result = GetDiagonalFields(source.Number, source.Letter, destination.Number, destination.Letter).All(y => y.IsEmpty());
+                    result = GetDiagonalFields(source.Number, source.Letter, destination.Number, destination.Letter);
                 }
             }
 
-            return result;
+            return result.All(y => y.IsEmpty());
         }
 
         private IEnumerable<Field> GetDiagonalFields(short startNumber, char startLetter, short endNumber, char endLetter)
@@ -85,6 +75,24 @@ namespace SierraNL.Chess.Core
                 for(int letterCounter = (short)startLetter+1; letterCounter < endLetter; letterCounter++) {
                     yield return GetField(new Location((char)letterCounter, (short)numberCounter));
                 }
+            }
+        }
+
+        private IEnumerable<Field> GetVerticalFields(short startNumber, short endNumber, char letter) {
+            if(startNumber > endNumber) {
+                return Fields.Where(x => x.Location.Letter == letter && x.Location.Number > endNumber && x.Location.Number < startNumber);
+            }
+            else {
+                return Fields.Where(x => x.Location.Letter == letter && x.Location.Number > startNumber && x.Location.Number < endNumber);
+            }
+        }
+
+        private IEnumerable<Field> GetHorizontalFields(char startLetter, char endLetter, short number) {
+            if(startLetter > endLetter) {
+                return Fields.Where(x => x.Location.Number == number && x.Location.Letter > endLetter && x.Location.Letter < startLetter);
+            }
+            else {
+               return Fields.Where(x => x.Location.Number == number && x.Location.Letter > startLetter && x.Location.Letter < endLetter);
             }
         }
 
