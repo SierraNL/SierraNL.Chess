@@ -1,6 +1,7 @@
 using System;
 using SierraNL.Chess.Core.Enums;
 using SierraNL.Chess.Core.Consts;
+using System.Collections.Generic;
 
 namespace SierraNL.Chess.Core.Pieces
 {
@@ -18,6 +19,16 @@ namespace SierraNL.Chess.Core.Pieces
             else {
                 result = false;
             }
+
+            return result;
+        }
+
+        public override IEnumerable<Location> PossibleMoves(Location source, Board board) 
+        {
+            var result = new List<Location>();
+            //Get all diagonal field from source
+            //Check them for free paths
+            //Check for empty or enemy destination
 
             return result;
         }
