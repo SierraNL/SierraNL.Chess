@@ -1,7 +1,7 @@
-using System;
 using SierraNL.Chess.Core.Enums;
 using SierraNL.Chess.Core.Consts;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SierraNL.Chess.Core.Pieces
 {
@@ -28,9 +28,50 @@ namespace SierraNL.Chess.Core.Pieces
 
         public override IEnumerable<Location> PossibleMoves(Location source, Board board) 
         {
-            var result = new List<Location>();
             //Get all 1 step + 1 step diagonal fields from source
-            //Check for empty or enemy destination
+            var possibleFields = GetPossibleFields(source, board);
+            //Checking for a free path isn't needed for knight
+            possibleFields = possibleFields.Where(x => x.IsEmpty() || x.HasPieceOfOppositeColor(Color));
+
+            return possibleFields.Select(x => x.Location);
+        }
+
+        private IEnumerable<Field> GetPossibleFields(Location source, Board board)
+        {
+            var result = new List<Field>();
+
+            if(source.StepsToLeftEdge() > 1) {
+                if(source.StepsToTopEdge() > 0) {
+                    result.Add(board.GetField((char)(source.Letter-2), (short)(source.Number+1)));
+                }
+                if(source.StepsToBottomEdge() > 0) {
+                    result.Add(board.GetField((char)(source.Letter-2), (short)(source.Number-1)));
+                }
+            }
+            if(source.StepsToRightEdge() > 1) {
+                if(source.StepsToTopEdge() > 0) {
+                    result.Add(board.GetField((char)(source.Letter+2), (short)(source.Number+1)));
+                }
+                if(source.StepsToBottomEdge() > 0) {
+                    result.Add(board.GetField((char)(source.Letter+2), (short)(source.Number-1)));
+                }
+            }
+            if(source.StepsToTopEdge() > 1) {
+                if(source.StepsToLeftEdge() > 0) {
+                    result.Add(board.GetField((char)(source.Letter-1), (short)(source.Number+2)));
+                }
+                if(source.StepsToRightEdge() > 0) {
+                    result.Add(board.GetField((char)(source.Letter+1), (short)(source.Number+2)));
+                }
+            }
+            if(source.StepsToBottomEdge() > 1) {
+                if(source.StepsToLeftEdge() > 0) {
+                    result.Add(board.GetField((char)(source.Letter-1), (short)(source.Number-2)));
+                }
+                if(source.StepsToRightEdge() > 0) {
+                    result.Add(board.GetField((char)(source.Letter+1), (short)(source.Number-2)));
+                }
+            }
 
             return result;
         }

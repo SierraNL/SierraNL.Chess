@@ -36,6 +36,10 @@ namespace SierraNL.Chess.Core
             return (Piece != null && Piece.Color == color);
         }
 
+        public bool HasPieceOfOppositeColor(Color color) {
+            return (Piece != null && Piece.Color != color);
+        }
+
         private Color DetermineColor() {
             var odd = Location.Number % 2 == 1;
             Color result = Color.White;

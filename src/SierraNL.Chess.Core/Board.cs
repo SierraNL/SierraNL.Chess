@@ -36,8 +36,65 @@ namespace SierraNL.Chess.Core
             return true;
         }
 
+        public Field GetField(char letter, short number) {
+            return GetField(new Location(letter, number));
+        }
+
         public Field GetField(Location location) {
             return Fields.SingleOrDefault(x => x.Location == location);
+        }
+
+        public IEnumerable<Field> GetDiagonalFields(Location source) {
+            var result = new List<Field>();
+
+            for(int i = 1; i < 'h'; i++) {
+                if(source.Number + i > 8) {
+                    break;
+                }
+                result.Add(GetField((char)(source.Letter+i), (short)(source.Number+i)));
+            }
+            
+            for(int i = 8; i > 'a'; i--) {
+                if(source.Number - i < 1) {
+                    break;
+                }
+                result.Add(GetField((char)(source.Letter-i), (short)(source.Number-i)));
+            }
+
+            for(int i = 1; i < 'h'; i++) {
+                if(source.Number - i < 1) {
+                    break;
+                }
+                result.Add(GetField((char)(source.Letter+i), (short)(source.Number-i)));
+            }
+            
+            for(int i = 8; i > 'a'; i--) {
+                if(source.Number + i > 8) {
+                    break;
+                }
+                result.Add(GetField((char)(source.Letter-i), (short)(source.Number+i)));
+            }
+
+            return result;
+        }
+
+        public IEnumerable<Field> GetStraightLineFields(Location source) {
+            var result = new List<Field>();
+
+            for(int i = 'a'; i<source.Letter; i++) {
+                result.Add(GetField(new Location((char)i, source.Number)));
+            }
+            for(int i = 'h'; i>source.Letter; i--) {
+                result.Add(GetField(new Location((char)i, source.Number)));
+            }
+            for(short i = 1; i<source.Number; i++) {
+                result.Add(GetField(new Location(source.Letter, i)));
+            }
+            for(short i = 8; i>source.Number; i--) {
+                result.Add(GetField(new Location(source.Letter, i)));
+            }
+
+            return result;
         }
 
         //The path is everything in between the source and destination, so excluding the source and destination fields
