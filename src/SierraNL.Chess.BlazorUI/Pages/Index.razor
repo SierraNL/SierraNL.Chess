@@ -27,6 +27,7 @@
     private Field _selectedField;
     private IEnumerable<Location> _possibleMoves;
     private const int FIELDSIZE = 45;
+    private const int BORDERSIZE = 20;
 
     protected BECanvasComponent _canvasReference;
     protected ElementReference _spriteReference;
@@ -57,7 +58,6 @@
         
         if(_selectedField == field) {
             await this._context.SetFillStyleAsync("#a0e26a");   
-            _possibleMoves = field.Piece.PossibleMoves(field.Location, _board);
         }
         else if(_possibleMoves != null && _possibleMoves.Any(x => x == field.Location)) {
             await this._context.SetFillStyleAsync(field.Color == Color.White ? "#e5f4df": "#7ba76c");
@@ -66,8 +66,8 @@
             await this._context.SetFillStyleAsync(field.Color == Color.White ? "#f5f4ef": "#a7976c");
         }
 
-        var x = FIELDSIZE * (field.Location.Letter - 97) + 20;
-        var y = FIELDSIZE * (field.Location.Number-1) + 20;
+        var x = FIELDSIZE * (field.Location.Letter - 97) + BORDERSIZE;
+        var y = FIELDSIZE * (field.Location.Number - 1) + BORDERSIZE;
 
         //Recalculate fields to zero based array, to render the squares correctly
         await this._context.FillRectAsync(x, y, FIELDSIZE, FIELDSIZE);
@@ -111,8 +111,8 @@
     }
 
     private void FieldClicked(MouseEventArgs e) {
-        var x = e.OffsetX - 20; //remove green margins
-        var y = e.OffsetY - 20;
+        var x = e.OffsetX - BORDERSIZE; //remove green margins
+        var y = e.OffsetY - BORDERSIZE;
         var letter = (char)(Math.Ceiling(x / FIELDSIZE) + 96);
         var number = (short)(Math.Ceiling(y / FIELDSIZE));
 
@@ -120,6 +120,7 @@
         if(!field.IsEmpty() && _game.CurrentPlayer == field.Piece.Color)
         {
             _selectedField = field;
+            _possibleMoves = field.Piece.PossibleMoves(field.Location, _board);
         }
         else if(_selectedField != null && _possibleMoves.Contains(field.Location)) {
             _game.AddMove(new Move(_selectedField.Location, field.Location));

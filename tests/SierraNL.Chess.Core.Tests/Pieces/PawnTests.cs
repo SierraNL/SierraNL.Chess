@@ -35,12 +35,28 @@ namespace SierraNL.Chess.Core.Tests.Pieces
         }
 
         [Fact]
+        public void PawnShouldBeAllowedToMove2StepsForwardForWhiteIfOnNumber2()
+        {
+            var board = new Board();
+            var source = new Location('d', 2);
+            Assert.True(_sut.IsMovePossible(source, new Location('d', 4), board));
+        }
+
+        [Fact]
         public void PawnShouldBeAllowedToMove1StepForwardForBlack()
         {
             var sut = new Pawn(Color.Black);
             var board = new Board();
             var source = new Location('d', 4);
             Assert.True(sut.IsMovePossible(source, new Location('d', 3), board));
+        }
+        [Fact]
+        public void PawnShouldBeAllowedToMove2StepsForwardForBlackIfOnNumber7()
+        {
+            var sut = new Pawn(Color.Black);
+            var board = new Board();
+            var source = new Location('d', 7);
+            Assert.True(sut.IsMovePossible(source, new Location('d', 5), board));
         }
 
         [Fact]

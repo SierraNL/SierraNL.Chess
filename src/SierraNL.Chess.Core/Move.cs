@@ -6,20 +6,15 @@ namespace SierraNL.Chess.Core
     {
         public Location SourceLocation {get; set;}
         public Location DestinationLocation {get; private set;}
-        public bool IsCapture {get; private set;}
-        public bool IsPawnPromotion {get; private set;}
-        public bool IsCheck {get; private set;}
-        public bool IsCheckMate {get; private set;}
-        public bool IsCastling {get; private set;}
+        public bool IsCapture {get; set;}
+        public bool IsPawnPromotion {get; set;}
+        public bool IsCheck {get; set;}
+        public bool IsCheckMate {get; set;}
+        public bool IsCastling {get; set;}
 
-        public Move(Location sourceLocation, Location destinationLocation, bool isCapture = false, bool isPawnPromotion = false, bool isCheck = false, bool isCheckMate = false, bool isCastling = false) {
+        public Move(Location sourceLocation, Location destinationLocation) {
             SourceLocation = sourceLocation;
             DestinationLocation = destinationLocation;
-            IsCapture = isCapture;
-            IsPawnPromotion = isPawnPromotion;
-            IsCheck = isCheck;
-            IsCheckMate = isCheckMate;
-            IsCastling = isCastling;
         }
 
         public override string ToString()

@@ -25,6 +25,8 @@ namespace SierraNL.Chess.Core
         public void AddMove(Move move)
         {
             if(Board.TryProcessMove(move)) {
+                //TODO: check for checkmate
+                //move.IsCheckMate = true;
                 ((List<Move>)Moves).Add(move);
             }
         }

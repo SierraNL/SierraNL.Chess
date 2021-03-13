@@ -50,6 +50,14 @@ namespace SierraNL.Chess.Core.Tests.Pieces
         }
 
         [Fact]
+        public void KingShouldNotBeAllowedToMoveToFieldWhichResultsInCheck()
+        {
+            var board = new Board();
+            var source = new Location('d', 5);
+            Assert.False(_sut.IsMovePossible(source, new Location('d', 6), board));
+        }
+
+        [Fact]
         public void KingShouldBeAllowedToMoveToFieldWithOpponentsPiece()
         {
             var board = new Board();
