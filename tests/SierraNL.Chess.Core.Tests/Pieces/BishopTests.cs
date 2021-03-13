@@ -1,3 +1,4 @@
+using System.Linq;
 using SierraNL.Chess.Core.Enums;
 using SierraNL.Chess.Core.Pieces;
 using Xunit;
@@ -37,6 +38,23 @@ namespace SierraNL.Chess.Core.Tests.Pieces
             Assert.True(_sut.IsMovePossible(source, new Location('f', 6), board));
             Assert.True(_sut.IsMovePossible(source, new Location('b', 2), board));
             Assert.True(_sut.IsMovePossible(source, new Location('b', 6), board));
+        }
+
+        [Fact]
+        public void BishopShouldHaveCorrectPossibleMoves() {
+            var board = new Board();
+            var source = new Location('d', 4);
+            var result = _sut.PossibleMoves(source, board);
+
+            Assert.Contains(new Location('c', 3), result);
+            Assert.Contains(new Location('e', 3), result);
+            Assert.Contains(new Location('c', 5), result);
+            Assert.Contains(new Location('e', 5), result);
+            Assert.Contains(new Location('b', 6), result);
+            Assert.Contains(new Location('f', 6), result);
+            Assert.Contains(new Location('a', 7), result);
+            Assert.Contains(new Location('g', 7), result);
+            Assert.Equal(8, result.Count());
         }
     }
 }

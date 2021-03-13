@@ -47,32 +47,28 @@ namespace SierraNL.Chess.Core
         public IEnumerable<Field> GetDiagonalFields(Location source) {
             var result = new List<Field>();
 
-            for(int i = 1; i < 'h'; i++) {
-                if(source.Number + i > 8) {
-                    break;
-                }
-                result.Add(GetField((char)(source.Letter+i), (short)(source.Number+i)));
+            var location = source;
+            while(location.StepsToBottomEdge() > 0 && location.StepsToLeftEdge() > 0) {
+                location = new Location((char)(location.Letter - 1), (short)(location.Number - 1));
+                result.Add(GetField(location));
             }
             
-            for(int i = 8; i > 'a'; i--) {
-                if(source.Number - i < 1) {
-                    break;
-                }
-                result.Add(GetField((char)(source.Letter-i), (short)(source.Number-i)));
+            location = source;
+            while(location.StepsToTopEdge() > 0 && location.StepsToLeftEdge() > 0) {
+                location = new Location((char)(location.Letter - 1), (short)(location.Number + 1));
+                result.Add(GetField(location));
             }
 
-            for(int i = 1; i < 'h'; i++) {
-                if(source.Number - i < 1) {
-                    break;
-                }
-                result.Add(GetField((char)(source.Letter+i), (short)(source.Number-i)));
+            location = source;
+            while(location.StepsToBottomEdge() > 0 && location.StepsToRightEdge() > 0) {
+                location = new Location((char)(location.Letter + 1), (short)(location.Number - 1));
+                result.Add(GetField(location));
             }
             
-            for(int i = 8; i > 'a'; i--) {
-                if(source.Number + i > 8) {
-                    break;
-                }
-                result.Add(GetField((char)(source.Letter-i), (short)(source.Number+i)));
+            location = source;
+            while(location.StepsToTopEdge() > 0 && location.StepsToRightEdge() > 0) {
+                location = new Location((char)(location.Letter + 1), (short)(location.Number + 1));
+                result.Add(GetField(location));
             }
 
             return result;

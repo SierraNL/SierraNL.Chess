@@ -13,14 +13,7 @@ namespace SierraNL.Chess.Core
 
             var lowerLetter = char.ToLower(letter);
 
-            if(letter != 'a' &&
-            letter != 'b' &&
-            letter != 'c' &&
-            letter != 'd' &&
-            letter != 'e' &&
-            letter != 'f' &&
-            letter != 'g' &&
-            letter != 'h') { throw new ArgumentException("Only a to h are valid letters");}
+            if(letter < 'a' || letter > 'h') { throw new ArgumentException("Only a to h are valid letters");}
 
             Letter = lowerLetter;
             Number = number;
@@ -85,6 +78,10 @@ namespace SierraNL.Chess.Core
 
         public int StepsToBottomEdge() {
             return Number-1;
+        }
+
+        public bool AtTheEdge() {
+            return Letter == 'a' || Letter == 'h' || Number == 1 || Number == 8;
         }
     }
 }

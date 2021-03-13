@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using SierraNL.Chess.Core;
 using SierraNL.Chess.Core.Consts;
@@ -97,6 +98,57 @@ namespace SierraNL.Chess.Core.Tests
             var sut = new Board();
 
             Assert.True(sut.IsFreePath(new Location('a',2), new Location('a', 3)));
+        }
+
+        [Fact]
+        public void GetDiagonalFieldsShouldReturnAllFieldsDiagonalFromCorner() {
+            var sut = new Board();
+
+            var result = sut.GetDiagonalFields(new Location('a', 1));
+            Assert.Contains(new Location('b', 2), result.Select(x => x.Location));
+            Assert.Contains(new Location('c', 3), result.Select(x => x.Location));
+            Assert.Contains(new Location('d', 4), result.Select(x => x.Location));
+            Assert.Contains(new Location('e', 5), result.Select(x => x.Location));
+            Assert.Contains(new Location('f', 6), result.Select(x => x.Location));
+            Assert.Contains(new Location('g', 7), result.Select(x => x.Location));
+            Assert.Contains(new Location('h', 8), result.Select(x => x.Location));
+            Assert.Equal(7, result.Count());
+        }
+
+        [Fact]
+        public void GetDiagonalFieldsShouldReturnAllFieldsDiagonalFromSide() {
+            var sut = new Board();
+
+            var result = sut.GetDiagonalFields(new Location('a', 4));
+            Assert.Contains(new Location('b', 3), result.Select(x => x.Location));
+            Assert.Contains(new Location('b', 5), result.Select(x => x.Location));
+            Assert.Contains(new Location('c', 2), result.Select(x => x.Location));
+            Assert.Contains(new Location('c', 6), result.Select(x => x.Location));
+            Assert.Contains(new Location('d', 1), result.Select(x => x.Location));
+            Assert.Contains(new Location('d', 7), result.Select(x => x.Location));
+            Assert.Contains(new Location('e', 8), result.Select(x => x.Location));
+            Assert.Equal(7, result.Count());
+        }
+
+        [Fact]
+        public void GetDiagonalFieldsShouldReturnAllFieldsDiagonalFromCenter() {
+            var sut = new Board();
+
+            var result = sut.GetDiagonalFields(new Location('d', 4));
+            Assert.Contains(new Location('c', 3), result.Select(x => x.Location));
+            Assert.Contains(new Location('c', 5), result.Select(x => x.Location));
+            Assert.Contains(new Location('b', 2), result.Select(x => x.Location));
+            Assert.Contains(new Location('b', 6), result.Select(x => x.Location));
+            Assert.Contains(new Location('a', 1), result.Select(x => x.Location));
+            Assert.Contains(new Location('a', 7), result.Select(x => x.Location));
+            Assert.Contains(new Location('e', 3), result.Select(x => x.Location));
+            Assert.Contains(new Location('e', 5), result.Select(x => x.Location));
+            Assert.Contains(new Location('f', 2), result.Select(x => x.Location));
+            Assert.Contains(new Location('f', 6), result.Select(x => x.Location));
+            Assert.Contains(new Location('g', 1), result.Select(x => x.Location));
+            Assert.Contains(new Location('g', 7), result.Select(x => x.Location));
+            Assert.Contains(new Location('h', 8), result.Select(x => x.Location));
+            Assert.Equal(13, result.Count());
         }
     }
 }
