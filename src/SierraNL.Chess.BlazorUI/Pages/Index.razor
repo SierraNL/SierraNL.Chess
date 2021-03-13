@@ -1,0 +1,20 @@
+@page "/"
+
+
+<h1>SierraNL Chess</h1>
+
+<BECanvas Width="400" Height="400" @ref="_canvasReference"></BECanvas>
+
+@code {
+    private WebGLContext _context;
+
+    protected BECanvasComponent _canvasReference;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        this._context = await this._canvasReference.CreateWebGLAsync();
+    
+        await this._context.ClearColorAsync(0, 0, 0, 1);
+        await this._context.ClearAsync(BufferBits.COLOR_BUFFER_BIT);
+    }
+}
