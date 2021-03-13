@@ -3,17 +3,20 @@
 
 <h1>SierraNL Chess</h1>
 
+<img src="images/Chess_Pieces_Sprite.svg" @ref="_spriteReference" style="display: none;" />
 <BECanvas Width="400" Height="400" @ref="_canvasReference"></BECanvas>
+
+<p>Chess piece images by jurgenwesterhof (adapted from work of Cburnett) - http://commons.wikimedia.org/wiki/Template:SVG_chess_pieces, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=35634436</p>
 
 @code {
     private Canvas2DContext  _context;
 
     protected BECanvasComponent _canvasReference;
+    protected ElementReference _spriteReference;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         this._context = await this._canvasReference.CreateCanvas2DAsync();
-        
 
         await DrawBoard();
     }
@@ -32,15 +35,47 @@
 
         await this._context.SetFillStyleAsync(field.Color == Color.White ? "#f5f4ef": "#a7976c");
 
+        var x = 45 * (field.Location.Letter - 97) + 20;
+        var y = 45 * (field.Location.Number-1) + 20;
+
         //Recalculate fields to zero based array, to render the squares correctly
-        await this._context.FillRectAsync(45 * (field.Location.Letter - 97) + 20, 45 * (field.Location.Number-1) + 20, 45, 45);
+        await this._context.FillRectAsync(x, y, 45, 45);
 
         if(!field.IsEmpty()) {
-            await DrawPiece(field.Piece);
+            await DrawPiece(field.Piece, x, y);
         }
     }
 
-    private async Task DrawPiece(Piece piece) {
+    private async Task DrawPiece(Piece piece, int x, int y) {
         await this._context.SetFillStyleAsync(piece.Color == Color.White ? "white": "black");
+        var spriteIndex = GetSpriteIndex(piece);
+        await this._context.DrawImageAsync(_spriteReference, spriteIndex.x, spriteIndex.y, 45, 45, x, y, 45, 45);
+    }
+
+    private (int x, int y) GetSpriteIndex(Piece piece) {
+        int x = 45;
+        switch(piece) {
+            case King:
+                x = 0 * x;
+                break;
+            case Queen:
+                x = 1 * x;
+                break;
+            case Bishop:
+                x = 2 * x;
+                break;
+            case Knight:
+                x = 3 * x;
+                break;
+            case Rook:
+                x = 4 * x;
+                break;
+            case Pawn:
+                x = 5 * x;
+                break;
+        }
+        var y = piece.Color == Color.White ? 0 : 45;
+
+        return (x , y);
     }
 }
