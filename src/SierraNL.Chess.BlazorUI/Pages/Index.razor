@@ -4,15 +4,38 @@
 <h1>SierraNL Chess</h1>
 
 <img src="images/Chess_Pieces_Sprite.svg" @ref="_spriteReference" style="display: none;" />
-<BECanvas Width="400" Height="400" @ref="_canvasReference"></BECanvas>
+<div tabindex="0" @onclick="FieldClicked" style="width: 400px; height: 400px;">
+<BECanvas Width="400" Height="400" @ref="_canvasReference" ></BECanvas>
+</div>
+
+<p>Current player: @_game.CurrentPlayer</p>
+<ul>
+    @foreach (var move in _game.Moves)
+    {
+        <li>@move</li>
+    }
+</ul>
+
+<button @onclick="RestartGame">Restart</button>
 
 <p>Chess piece images by jurgenwesterhof (adapted from work of Cburnett) - http://commons.wikimedia.org/wiki/Template:SVG_chess_pieces, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=35634436</p>
 
 @code {
     private Canvas2DContext  _context;
+    private Game _game;
+    private Board _board;
+    private Field _selectedField;
+    private IEnumerable<Location> _possibleMoves;
+    private const int FIELDSIZE = 45;
 
     protected BECanvasComponent _canvasReference;
     protected ElementReference _spriteReference;
+
+    protected override void OnInitialized()
+    {
+        _game = new Game();
+        _board = _game.Board;
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -25,21 +48,29 @@
         await this._context.SetFillStyleAsync("green");
         await this._context.FillRectAsync(0, 0, 400, 400);
 
-        var board = new Board();
-        foreach(var field in board.Fields) {
+        foreach(var field in _board.Fields) {
             await DrawField(field);
         }
     }
 
     private async Task DrawField(Field field) {
+        
+        if(_selectedField == field) {
+            await this._context.SetFillStyleAsync("#a0e26a");   
+            _possibleMoves = field.Piece.PossibleMoves(field.Location, _board);
+        }
+        else if(_possibleMoves != null && _possibleMoves.Any(x => x == field.Location)) {
+            await this._context.SetFillStyleAsync(field.Color == Color.White ? "#e5f4df": "#7ba76c");
+        }
+        else {
+            await this._context.SetFillStyleAsync(field.Color == Color.White ? "#f5f4ef": "#a7976c");
+        }
 
-        await this._context.SetFillStyleAsync(field.Color == Color.White ? "#f5f4ef": "#a7976c");
-
-        var x = 45 * (field.Location.Letter - 97) + 20;
-        var y = 45 * (field.Location.Number-1) + 20;
+        var x = FIELDSIZE * (field.Location.Letter - 97) + 20;
+        var y = FIELDSIZE * (field.Location.Number-1) + 20;
 
         //Recalculate fields to zero based array, to render the squares correctly
-        await this._context.FillRectAsync(x, y, 45, 45);
+        await this._context.FillRectAsync(x, y, FIELDSIZE, FIELDSIZE);
 
         if(!field.IsEmpty()) {
             await DrawPiece(field.Piece, x, y);
@@ -49,11 +80,11 @@
     private async Task DrawPiece(Piece piece, int x, int y) {
         await this._context.SetFillStyleAsync(piece.Color == Color.White ? "white": "black");
         var spriteIndex = GetSpriteIndex(piece);
-        await this._context.DrawImageAsync(_spriteReference, spriteIndex.x, spriteIndex.y, 45, 45, x, y, 45, 45);
+        await this._context.DrawImageAsync(_spriteReference, spriteIndex.x, spriteIndex.y, FIELDSIZE, FIELDSIZE, x, y, FIELDSIZE, FIELDSIZE);
     }
 
     private (int x, int y) GetSpriteIndex(Piece piece) {
-        int x = 45;
+        int x = FIELDSIZE;
         switch(piece) {
             case King:
                 x = 0 * x;
@@ -74,8 +105,31 @@
                 x = 5 * x;
                 break;
         }
-        var y = piece.Color == Color.White ? 0 : 45;
+        var y = piece.Color == Color.White ? 0 : FIELDSIZE;
 
         return (x , y);
+    }
+
+    private void FieldClicked(MouseEventArgs e) {
+        var x = e.OffsetX - 20; //remove green margins
+        var y = e.OffsetY - 20;
+        var letter = (char)(Math.Ceiling(x / FIELDSIZE) + 96);
+        var number = (short)(Math.Ceiling(y / FIELDSIZE));
+
+        var field = _board.GetField(letter, number);
+        if(!field.IsEmpty() && _game.CurrentPlayer == field.Piece.Color)
+        {
+            _selectedField = field;
+        }
+        else if(_selectedField != null && _possibleMoves.Contains(field.Location)) {
+            _game.AddMove(new Move(_selectedField.Location, field.Location));
+            _selectedField = null;
+            _possibleMoves = null;
+        }
+    }
+
+    private void RestartGame(MouseEventArgs e) {
+        _game = new Game();
+        _board = _game.Board;
     }
 }

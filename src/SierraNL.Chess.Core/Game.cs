@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SierraNL.Chess.Core.Enums;
 
 namespace SierraNL.Chess.Core
 {
@@ -15,14 +16,27 @@ namespace SierraNL.Chess.Core
             Board = new Board();
         }
 
-        public bool IsFinished() {
-            return Moves.Any(x => x.IsCheckMate);
+        public bool IsFinished { 
+            get {
+                return Moves.Any(x => x.IsCheckMate);
+            }
         }
 
         public void AddMove(Move move)
         {
             if(Board.TryProcessMove(move)) {
                 ((List<Move>)Moves).Add(move);
+            }
+        }
+
+        public Color CurrentPlayer {
+            get {
+                if(!Moves.Any()) {
+                    return Color.White;
+                }
+                else {
+                    return Moves.Count() % 2 == 0 ? Color.White : Color.Black;
+                }
             }
         }
 
