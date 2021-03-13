@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace SierraNL.Chess.Blazor
+namespace SierraNL.Chess.BlazorUI
 {
     public class Startup
     {

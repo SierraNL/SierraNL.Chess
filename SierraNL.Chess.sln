@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C3678EB4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SierraNL.Chess.Core.Tests", "tests\SierraNL.Chess.Core.Tests\SierraNL.Chess.Core.Tests.csproj", "{02705829-516C-4B86-AD11-C23D3AFF0D45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SierraNL.Chess.Blazor", "src\SierraNL.Chess.Blazor\SierraNL.Chess.Blazor.csproj", "{BE4C4EB4-21D5-4DD4-B295-D122DA169FA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SierraNL.Chess.Blazor", "src\SierraNL.Chess.BlazorUI\SierraNL.Chess.BlazorUI.csproj", "{BE4C4EB4-21D5-4DD4-B295-D122DA169FA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
