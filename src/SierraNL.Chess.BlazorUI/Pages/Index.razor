@@ -6,15 +6,41 @@
 <BECanvas Width="400" Height="400" @ref="_canvasReference"></BECanvas>
 
 @code {
-    private WebGLContext _context;
+    private Canvas2DContext  _context;
 
     protected BECanvasComponent _canvasReference;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        this._context = await this._canvasReference.CreateWebGLAsync();
-    
-        await this._context.ClearColorAsync(0, 0, 0, 1);
-        await this._context.ClearAsync(BufferBits.COLOR_BUFFER_BIT);
+        this._context = await this._canvasReference.CreateCanvas2DAsync();
+        
+
+        await DrawBoard();
+    }
+
+    private async Task DrawBoard() {
+        await this._context.SetFillStyleAsync("green");
+        await this._context.FillRectAsync(0, 0, 400, 400);
+
+        var board = new Board();
+        foreach(var field in board.Fields) {
+            await DrawField(field);
+        }
+    }
+
+    private async Task DrawField(Field field) {
+
+        await this._context.SetFillStyleAsync(field.Color == Color.White ? "#f5f4ef": "#a7976c");
+
+        //Recalculate fields to zero based array, to render the squares correctly
+        await this._context.FillRectAsync(45 * (field.Location.Letter - 97) + 20, 45 * (field.Location.Number-1) + 20, 45, 45);
+
+        if(!field.IsEmpty()) {
+            await DrawPiece(field.Piece);
+        }
+    }
+
+    private async Task DrawPiece(Piece piece) {
+        await this._context.SetFillStyleAsync(piece.Color == Color.White ? "white": "black");
     }
 }

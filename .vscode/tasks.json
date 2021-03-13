@@ -7,19 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/SierraNL.Chess.Console/SierraNL.Chess.Console.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "publish",
-                "${workspaceFolder}/src/SierraNL.Chess.Console/SierraNL.Chess.Console.csproj",
+                "${workspaceFolder}/src/SierraNL.Chess.BlazorUI/SierraNL.Chess.BlazorUI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +20,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/src/SierraNL.Chess.Console/SierraNL.Chess.Console.csproj",
+                "${workspaceFolder}/src/SierraNL.Chess.BlazorUI/SierraNL.Chess.BlazorUI.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
