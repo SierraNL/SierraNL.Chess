@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using SierraNL.Chess.Core;
 using SierraNL.Chess.Core.Consts;
 using SierraNL.Chess.Core.Pieces;
 using Xunit;
@@ -62,7 +59,7 @@ namespace SierraNL.Chess.Core.Tests
         public void ANewBoardShouldAcceptMovingPawnFromE2ToE4()
         {
             var sut = new Board();
-            var move = new Move(new Location('e', 2), new Location('e', 4));
+            var move = new Move(new Location('e', 2), new Location('e', 4), sut.GetField('e', 2).Piece);
             Assert.True(sut.TryProcessMove(move));
 
             //Pawn is now at e4
@@ -160,7 +157,7 @@ namespace SierraNL.Chess.Core.Tests
             sut.GetField('e', 7).Piece = null;
             //Create move that puts rook in front of king
             sut.GetField('d', 4).Piece = new Rook(Enums.Color.White);
-            var move = new Move(new Location('d', 4),new Location('e', 4));
+            var move = new Move(new Location('d', 4),new Location('e', 4), sut.GetField('d', 4).Piece);
             Assert.True(sut.TryProcessMove(move));
             Assert.True(move.IsCheck);
         }

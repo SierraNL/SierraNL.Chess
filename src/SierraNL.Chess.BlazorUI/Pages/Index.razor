@@ -9,14 +9,25 @@
 </div>
 
 <p>Current player: @_game.CurrentPlayer</p>
-<ul>
-    @foreach (var move in _game.Moves)
-    {
-        <li>@move</li>
-    }
-</ul>
+<table class="table table-bordered">
+<thead>
+    <tr>
+        <th scope="col">White</th>
+        <th scope="col">Black</th>
+    </tr>
+</thead>
+<tbody>
+@for(int i=0; i<_game.Moves.Count(); i=i+2)
+{
+<tr>
+    <td>@_game.Moves.ElementAt(i)</td>
+    <td>@_game.Moves.ElementAtOrDefault(i+1)</td>
+</tr>
+}
+</tbody>
+</table>
 
-<button @onclick="RestartGame">Restart</button>
+<button type="button" class="btn btn-warning" @onclick="RestartGame">Restart</button>
 
 <p>Chess piece images by jurgenwesterhof (adapted from work of Cburnett) - http://commons.wikimedia.org/wiki/Template:SVG_chess_pieces, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=35634436</p>
 
@@ -60,7 +71,7 @@
             await this._context.SetFillStyleAsync("#a0e26a");   
         }
         else if(_possibleMoves != null && _possibleMoves.Any(x => x == field.Location)) {
-            await this._context.SetFillStyleAsync(field.Color == Color.White ? "#e5f4df": "#7ba76c");
+            await this._context.SetFillStyleAsync(field.Color == Color.White ? "#e1f1db": "#7ba76c");
         }
         else {
             await this._context.SetFillStyleAsync(field.Color == Color.White ? "#f5f4ef": "#a7976c");
@@ -123,7 +134,7 @@
             _possibleMoves = field.Piece.PossibleMoves(field.Location, _board);
         }
         else if(_selectedField != null && _possibleMoves.Contains(field.Location)) {
-            _game.AddMove(new Move(_selectedField.Location, field.Location));
+            _game.AddMove(new Move(_selectedField.Location, field.Location, _selectedField.Piece));
             _selectedField = null;
             _possibleMoves = null;
         }
