@@ -22,13 +22,18 @@ namespace SierraNL.Chess.Core
             }
         }
 
-        public void AddMove(Move move)
+        public bool TryAddMove(Move move)
         {
+            bool result = false;
+
             if(Board.TryProcessMove(move)) {
                 //TODO: check for checkmate
                 //move.IsCheckMate = true;
                 ((List<Move>)Moves).Add(move);
+                result = true;
             }
+
+            return result;
         }
 
         public Color CurrentPlayer {

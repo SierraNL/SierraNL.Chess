@@ -131,12 +131,14 @@
         if(!field.IsEmpty() && _game.CurrentPlayer == field.Piece.Color)
         {
             _selectedField = field;
+            //TODO: if you are checked, you should only be presented with moves that solve the check situation
             _possibleMoves = field.Piece.PossibleMoves(field.Location, _board);
         }
         else if(_selectedField != null && _possibleMoves.Contains(field.Location)) {
-            _game.AddMove(new Move(_selectedField.Location, field.Location, _selectedField.Piece));
-            _selectedField = null;
-            _possibleMoves = null;
+            if(_game.TryAddMove(new Move(_selectedField.Location, field.Location, _selectedField.Piece))) {
+                _selectedField = null;
+                _possibleMoves = null;
+            }
         }
     }
 
