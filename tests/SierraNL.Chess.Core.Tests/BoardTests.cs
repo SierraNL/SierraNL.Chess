@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SierraNL.Chess.Core;
 using SierraNL.Chess.Core.Consts;
+using SierraNL.Chess.Core.Pieces;
 using Xunit;
 
 namespace SierraNL.Chess.Core.Tests
@@ -149,6 +150,19 @@ namespace SierraNL.Chess.Core.Tests
             Assert.Contains(new Location('g', 7), result.Select(x => x.Location));
             Assert.Contains(new Location('h', 8), result.Select(x => x.Location));
             Assert.Equal(13, result.Count());
+        }
+
+        [Fact]
+        public void TryProcessMoveShouldAddCheckedToTheMoveIfDestinationOfMoveCanCaptureKing() {
+            var sut = new Board();
+
+            //Remove pawn in from of king
+            sut.GetField('e', 7).Piece = null;
+            //Create move that puts rook in front of king
+            sut.GetField('d', 4).Piece = new Rook(Enums.Color.White);
+            var move = new Move(new Location('d', 4),new Location('e', 4));
+            Assert.True(sut.TryProcessMove(move));
+            Assert.True(move.IsCheck);
         }
     }
 }

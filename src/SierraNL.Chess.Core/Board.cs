@@ -32,6 +32,12 @@ namespace SierraNL.Chess.Core
                     move.IsCapture = true;
                 }
 
+                if(piece.PossibleMoves(move.DestinationLocation, this).Any(x => GetField(x).HasPieceOfOppositeColor(piece.Color) && GetField(x)?.Piece is King)) {
+                    move.IsCheck = true;
+                }
+
+                //TODO: checkmate rule, can the king move or can something undo the check
+
                 Fields.Single(x => x.Location == move.DestinationLocation).Piece = piece;
                 Fields.Single(x => x.Location == move.SourceLocation).Piece = null;
             }
