@@ -56,5 +56,35 @@ namespace SierraNL.Chess.Core.Tests.Pieces
             Assert.Contains(new Location('g', 7), result);
             Assert.Equal(8, result.Count());
         }
+
+        [Fact]
+        public void BishopWithOneFreePathShouldBeAllowedToMoveInDiagonalToTheEdgeOfTheBoard()
+        {
+            var board = new Board();
+            //create path
+            board.GetField('d', 2).Piece = null;
+            var source = new Location('c', 1);
+            Assert.True(_sut.IsMovePossible(source, new Location('d', 2), board));
+            Assert.True(_sut.IsMovePossible(source, new Location('e', 3), board));
+            Assert.True(_sut.IsMovePossible(source, new Location('f', 4), board));
+            Assert.True(_sut.IsMovePossible(source, new Location('g', 5), board));
+            Assert.True(_sut.IsMovePossible(source, new Location('h', 6), board));
+        }
+
+        [Fact]
+        public void BishopWithOneFreePathShouldHavePossibleMovesInDiagonalToTheEdgeOfTheBoard() {
+            var board = new Board();
+            //create path
+            board.GetField('d', 2).Piece = null;
+            var source = new Location('c', 1);
+            var result = _sut.PossibleMoves(source, board);
+
+            Assert.Contains(new Location('d', 2), result);
+            Assert.Contains(new Location('e', 3), result);
+            Assert.Contains(new Location('f', 4), result);
+            Assert.Contains(new Location('g', 5), result);
+            Assert.Contains(new Location('h', 6), result);
+            Assert.Equal(5, result.Count());
+        }
     }
 }

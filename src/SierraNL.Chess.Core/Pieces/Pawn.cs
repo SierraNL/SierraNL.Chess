@@ -15,11 +15,14 @@ namespace SierraNL.Chess.Core.Pieces
             bool result = false;
 
             var destinationField = board.GetField(destination);
-            //one step forward (color dependant), if not blocked
+            //one step forward (color dependant), if not blocked, 2 steps if it's on starting position
             //can move diagonal when it's a capture
             if(Color == Color.White)
             {
                 if(destination.Number == source.Number + 1 && destination.Letter == source.Letter && destinationField.IsEmpty()) {
+                    result = true;
+                }
+                else if(source.Number == 2 && destination.Number == source.Number + 2 && destination.Letter == source.Letter && destinationField.IsEmpty()) {
                     result = true;
                 }
                 else if(destination.Number == source.Number + 1 && ((short)destination.Letter == (short)source.Letter + 1 || (short)destination.Letter == (short)source.Letter - 1) && 
@@ -29,6 +32,9 @@ namespace SierraNL.Chess.Core.Pieces
             }
             else {
                 if(destination.Number == source.Number - 1 && destination.Letter == source.Letter && destinationField.IsEmpty()) {
+                    result = true;
+                }
+                else if(source.Number == 7 && destination.Number == source.Number - 2 && destination.Letter == source.Letter && destinationField.IsEmpty()) {
                     result = true;
                 }
                 else if(destination.Number == source.Number - 1 && ((short)destination.Letter == (short)source.Letter + 1 || (short)destination.Letter == (short)source.Letter - 1) && 
@@ -46,8 +52,12 @@ namespace SierraNL.Chess.Core.Pieces
             var result = new List<Location>();
 
             Field nextField = board.GetField(new Location(source.Letter, Color == Color.White ? (short)(source.Number + 1) : (short)(source.Number - 1)));
+            Field nextNextField = board.GetField(new Location(source.Letter, Color == Color.White ? (short)(source.Number + 2) : (short)(source.Number - 2)));
             if(nextField.IsEmpty()) {
                 result.Add(nextField.Location);
+            }
+            if(source.Number == (Color == Color.White ? 2 : 7) && nextField.IsEmpty() && nextNextField.IsEmpty()) {
+                result.Add(nextNextField.Location);
             }
             if(source.StepsToLeftEdge() > 0) {
                 Field leftField = board.GetField(new Location((char)(source.Letter-1), Color == Color.White ? (short)(source.Number + 1) : (short)(source.Number - 1)));

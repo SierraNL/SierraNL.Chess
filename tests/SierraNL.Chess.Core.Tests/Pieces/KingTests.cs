@@ -49,6 +49,14 @@ namespace SierraNL.Chess.Core.Tests.Pieces
             Assert.False(_sut.IsMovePossible(source, new Location('c', 2), board));
         }
 
+        [Fact(Skip = "Check detection is still an open issue")]
+        public void KingShouldNotBeAllowedToMoveToFieldWhichResultsInCheck()
+        {
+            var board = new Board();
+            var source = new Location('d', 5);
+            Assert.False(_sut.IsMovePossible(source, new Location('d', 6), board));
+        }
+
         [Fact]
         public void KingShouldBeAllowedToMoveToFieldWithOpponentsPiece()
         {

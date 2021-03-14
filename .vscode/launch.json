@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/src/SierraNL.Chess.Console/bin/Debug/net5.0/SierraNL.Chess.Console.dll",
+            "program": "${workspaceFolder}/src/SierraNL.Chess.BlazorUI/bin/Debug/net5.0/SierraNL.Chess.BlazorUI.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/SierraNL.Chess.Console",
+            "cwd": "${workspaceFolder}/src/SierraNL.Chess.BlazorUI",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
             "stopAtEntry": false

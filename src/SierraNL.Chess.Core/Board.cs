@@ -24,7 +24,19 @@ namespace SierraNL.Chess.Core
                     throw new InvalidOperationException("You can't make a move from a location not containing a piece");
                 }
 
-                piece.IsMovePossible(move.SourceLocation, move.DestinationLocation, this);
+                if(!piece.IsMovePossible(move.SourceLocation, move.DestinationLocation, this)) {
+                    return false;
+                }
+
+                if(Fields.Single(x => x.Location == move.DestinationLocation).HasPieceOfOppositeColor(piece.Color)) {
+                    move.IsCapture = true;
+                }
+
+                if(piece.PossibleMoves(move.DestinationLocation, this).Any(x => GetField(x).HasPieceOfOppositeColor(piece.Color) && GetField(x)?.Piece is King)) {
+                    move.IsCheck = true;
+                }
+
+                //TODO: checkmate rule, can the king move or can something undo the check
 
                 Fields.Single(x => x.Location == move.DestinationLocation).Piece = piece;
                 Fields.Single(x => x.Location == move.SourceLocation).Piece = null;
@@ -124,10 +136,10 @@ namespace SierraNL.Chess.Core
 
         private IEnumerable<Field> GetDiagonalFields(short startNumber, char startLetter, short endNumber, char endLetter)
         {
+            var letterCounter = startLetter;
             for(int numberCounter = startNumber+1; numberCounter < endNumber; numberCounter++) {
-                for(int letterCounter = (short)startLetter+1; letterCounter < endLetter; letterCounter++) {
-                    yield return GetField(new Location((char)letterCounter, (short)numberCounter));
-                }
+                letterCounter++;
+                yield return GetField(new Location((char)letterCounter, (short)numberCounter));
             }
         }
 
